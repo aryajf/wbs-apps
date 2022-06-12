@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Wbs;
+use App\Models\M_;
 
 class WbsController extends Controller
 {
@@ -13,7 +15,8 @@ class WbsController extends Controller
      */
     public function index()
     {
-        return view('wbs/index');
+        $wbs = Wbs::latest()->paginate(10);
+        return view('wbs/index', compact('wbs'));
     }
 
     /**
@@ -46,6 +49,22 @@ class WbsController extends Controller
             'tower' => 'required',
             'tower_height' => 'required',
         ]);
+
+        // dd($request);
+
+        $wbs = Wbs::create([
+            'site_id' => $request->site_id,
+            'site_name' => $request->site_name,
+            'project_budget' => $request->project_budget,
+            'regional' => $request->regional,
+            'site_type' => $request->site_type,
+            'survey_date' => $request->survey_date,
+            'consultant' => $request->consultant,
+            'cons_pic_name' => $request->cons_pic_name,
+            'tower' => $request->tower,
+            'tower_height' => $request->tower_height,
+        ]);
+        return redirect()->route('wbs.index')->with(['success' => "Data Berhasil Disimpan!"]);
     }
 
     /**
@@ -54,9 +73,9 @@ class WbsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Wbs $wbs)
     {
-        return view('wbs/show');
+        return view('wbs/show', compact('wbs'));
     }
 
     /**
@@ -65,9 +84,9 @@ class WbsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Wbs $wbs)
     {
-        return view('wbs/edit');
+        return view('wbs/edit', compact('wbs'));
     }
 
     /**
@@ -77,9 +96,34 @@ class WbsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Wbs $wbs)
     {
-        //
+        $this->validate($request, [
+            'site_id' => 'required|integer',
+            'site_name' => 'required',
+            'project_budget' => 'required',
+            'regional' => 'required',
+            'site_type' => 'required',
+            'survey_date' => 'required',
+            'consultant' => 'required',
+            'cons_pic_name' => 'required',
+            'tower' => 'required',
+            'tower_height' => 'required',
+        ]);
+
+        $wbs->update([
+            'site_id' => $request->site_id,
+            'site_name' => $request->site_name,
+            'project_budget' => $request->project_budget,
+            'regional' => $request->regional,
+            'site_type' => $request->site_type,
+            'survey_date' => $request->survey_date,
+            'consultant' => $request->consultant,
+            'cons_pic_name' => $request->cons_pic_name,
+            'tower' => $request->tower,
+            'tower_height' => $request->tower_height,
+        ]);
+        return redirect()->route('wbs.index')->with(['success' => "Data Berhasil Disimpan!"]);
     }
 
     /**
@@ -90,6 +134,9 @@ class WbsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Wbs::find($id)->delete();
+
+        //redirect to index
+        return redirect()->route('wbs.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

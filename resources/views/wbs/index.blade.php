@@ -3,9 +3,45 @@
 @section('title', 'Home WBS')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col">tess</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-0 shadow rounded">
+                <div class="card-body">
+                    <a href="{{ route('wbs.create') }}" class="btn btn-md btn-success mb-3">TAMBAH POST</a>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">JUDUL</th>
+                                <th scope="col">CONTENT</th>
+                                <th scope="col">AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($wbs as $item)
+                            <tr>
+                                <td>{{ $item->title }}</td>
+                                <td>{!! $item->content !!}</td>
+                                <td class="text-center">
+                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('wbs.destroy', $item->id) }}" method="POST">
+                                        <a href="{{ route('wbs.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                                <div class="alert alert-danger">
+                                    Data WBS belum Tersedia.
+                                </div>
+                            @endforelse
+                        </tbody>
+                    </table>  
+                    {{ $wbs->links() }}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
