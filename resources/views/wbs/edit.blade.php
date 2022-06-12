@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Home WBS')
+@section('title', 'Edit WBS')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col">tess</div>
+        <div class="col">edit</div>
     </div>
 </div>
 @endsection

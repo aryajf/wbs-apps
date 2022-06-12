@@ -23,7 +23,7 @@ class WbsController extends Controller
      */
     public function create()
     {
-        //
+        return view('wbs/create');
     }
 
     /**
@@ -34,7 +34,18 @@ class WbsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'site_id' => 'required|integer',
+            'site_name' => 'required',
+            'project_budget' => 'required',
+            'regional' => 'required',
+            'site_type' => 'required',
+            'survey_date' => 'required',
+            'consultant' => 'required',
+            'cons_pic_name' => 'required',
+            'tower' => 'required',
+            'tower_height' => 'required',
+        ]);
     }
 
     /**
@@ -45,7 +56,7 @@ class WbsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('wbs/show');
     }
 
     /**
@@ -56,7 +67,7 @@ class WbsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('wbs/edit');
     }
 
     /**
