@@ -12,16 +12,22 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">JUDUL</th>
-                                <th scope="col">CONTENT</th>
+                                <th scope="col">SITE NAME</th>
+                                <th scope="col">PROJECT BUDGET</th>
+                                <th scope="col">REGIONAL</th>
+                                <th scope="col">TOWER #</th>
+                                <th scope="col">TOWER HEIGHT</th>
                                 <th scope="col">AKSI</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($wbs as $item)
                             <tr>
-                                <td>{{ $item->title }}</td>
-                                <td>{!! $item->content !!}</td>
+                                <td>{{ $item->site_name }}</td>
+                                <td>{{ $item->project_budget }}</td>
+                                <td>{{ $item->regional }}</td>
+                                <td>{{ $item->tower }}</td>
+                                <td>{{ $item->tower_height }}</td>
                                 <td class="text-center">
                                     <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('wbs.destroy', $item->id) }}" method="POST">
                                         <a href="{{ route('wbs.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>

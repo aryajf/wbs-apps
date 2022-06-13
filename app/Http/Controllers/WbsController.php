@@ -37,33 +37,46 @@ class WbsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(count($request->site_id));
         $this->validate($request, [
-            'site_id' => 'required|integer',
-            'site_name' => 'required',
-            'project_budget' => 'required',
-            'regional' => 'required',
-            'site_type' => 'required',
-            'survey_date' => 'required',
-            'consultant' => 'required',
-            'cons_pic_name' => 'required',
-            'tower' => 'required',
-            'tower_height' => 'required',
+            'site_id' => 'required|array',
+            'site_id.*' => 'required',
+            'site_name' => 'required|array',
+            'site_name.*' => 'required',
+            // 'project_budget' => 'required|array',
+            // 'project_budget.*' => 'required',
+            // 'regional' => 'required|array',
+            // 'regional.*' => 'required',
+            // 'site_type' => 'required|array',
+            // 'site_type.*' => 'required',
+            // 'survey_date' => 'required|array',
+            // 'survey_date.*' => 'required',
+            // 'consultant' => 'required|array',
+            // 'consultant.*' => 'required',
+            // 'cons_pic_name' => 'required|array',
+            // 'cons_pic_name.*' => 'required',
+            // 'tower' => 'required|array',
+            // 'tower.*' => 'required',
+            // 'tower_height' => 'required|array',
+            // 'tower_height.*' => 'required',
         ]);
+
+        // dd($validator);
 
         // dd($request);
 
-        $wbs = Wbs::create([
-            'site_id' => $request->site_id,
-            'site_name' => $request->site_name,
-            'project_budget' => $request->project_budget,
-            'regional' => $request->regional,
-            'site_type' => $request->site_type,
-            'survey_date' => $request->survey_date,
-            'consultant' => $request->consultant,
-            'cons_pic_name' => $request->cons_pic_name,
-            'tower' => $request->tower,
-            'tower_height' => $request->tower_height,
-        ]);
+        // $wbs = Wbs::create([
+        //     'site_id' => $request->site_id,
+        //     'site_name' => $request->site_name,
+        //     'project_budget' => $request->project_budget,
+        //     'regional' => $request->regional,
+        //     'site_type' => $request->site_type,
+        //     'survey_date' => $request->survey_date,
+        //     'consultant' => $request->consultant,
+        //     'cons_pic_name' => $request->cons_pic_name,
+        //     'tower' => $request->tower,
+        //     'tower_height' => $request->tower_height,
+        // ]);
         return redirect()->route('wbs.index')->with(['success' => "Data Berhasil Disimpan!"]);
     }
 
